@@ -16,6 +16,13 @@ test('el menú compacto cubre tablet y móvil con objetivos táctiles', () => {
   assert.match(styles, /@media \(max-width: 63\.99rem\)[\s\S]*?\.main-nav a:not\(\.nav-cta\) \{[\s\S]*?padding: 0\.75rem 0/);
 });
 
+test('el menú acompaña al usuario en móvil y tablet', () => {
+  assert.match(styles, /@media \(max-width: 63\.99rem\)[\s\S]*?\.site-header \{[\s\S]*?position: sticky/);
+  assert.match(styles, /@media \(max-width: 63\.99rem\)[\s\S]*?scroll-margin-top: 5\.75rem/);
+  assert.match(styles, /\.main-nav\.is-open \{[\s\S]*?box-shadow:/);
+  assert.match(styles, /@media \(max-width: 63\.99rem\)[\s\S]*?\.main-nav \{[\s\S]*?overflow-y: auto/);
+});
+
 test('la página completa no se estira más de 1400px', () => {
   assert.match(styles, /--page-max:\s*87\.5rem/);
   assert.match(styles, /body \{[\s\S]*?max-width: var\(--page-max\)/);
