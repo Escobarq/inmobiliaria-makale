@@ -68,6 +68,12 @@ test('el CSS incorpora movimiento ligero y accesible', () => {
   assert.match(styles, /prefers-reduced-motion: reduce[\s\S]*\.button:focus-visible[\s\S]*transform:\s*none/);
 });
 
+test('los enlaces del menú conservan un nombre accesible aunque estén ocultos', () => {
+  for (const label of ['Inicio', 'Propiedades', 'Servicios', 'Nosotros', 'Contacto', 'Hablar con un asesor']) {
+    assert.match(page, new RegExp(`aria-label="${label}"`));
+  }
+});
+
 test('el menú actualiza su etiqueta accesible al cambiar de estado', () => {
   assert.match(script, /setAttribute\(['"]aria-label['"][\s\S]*Abrir menú/);
   assert.match(script, /setAttribute\(['"]aria-label['"][\s\S]*Cerrar menú/);
