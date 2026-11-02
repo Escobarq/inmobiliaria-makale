@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
+    "scrape": "node scripts/scrape-properties.mjs",
+    "prebuild": "npm run scrape",
     "build": "astro build",
     "preview": "astro preview",
     "test": "node --test"

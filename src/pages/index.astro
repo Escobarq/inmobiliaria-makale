@@ -184,9 +184,11 @@ import "../styles/global.css";
                                         {property.location}
                                     </p>
                                     <h3>{property.title}</h3>
-                                    <p class="property-details">
-                                        {property.details}
-                                    </p>
+                                    {property.details && (
+                                        <p class="property-details">
+                                            {property.details}
+                                        </p>
+                                    )}
                                 </div>
                                 <strong>{property.price}</strong>
                             </div>

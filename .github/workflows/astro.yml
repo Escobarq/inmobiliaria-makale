@@ -12,6 +12,10 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+  # Rebuilds daily so new listings appear without a manual push
+  schedule:
+    - cron: "0 5 * * *"
+
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
@@ -65,6 +69,9 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+        working-directory: ${{ env.BUILD_PATH }}
+      - name: Actualizar inmuebles
+        run: npm run scrape
         working-directory: ${{ env.BUILD_PATH }}
       - name: Build with Astro
         run: |
