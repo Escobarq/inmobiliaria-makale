@@ -16,6 +16,12 @@ test('el menú compacto cubre tablet y móvil con objetivos táctiles', () => {
   assert.match(styles, /@media \(max-width: 63\.99rem\)[\s\S]*?\.main-nav a:not\(\.nav-cta\) \{[\s\S]*?padding: 0\.75rem 0/);
 });
 
+test('la página completa no se estira más de 1400px', () => {
+  assert.match(styles, /--page-max:\s*87\.5rem/);
+  assert.match(styles, /body \{[\s\S]*?max-width: var\(--page-max\)/);
+  assert.match(styles, /\.site-header \{[\s\S]*?padding: 0 max\(2\.5rem, calc\(\(100% - var\(--content-max\)\) \/ 2\)\)/);
+});
+
 test('las tarjetas permiten que el título encoja sin tapar el precio', () => {
   assert.match(styles, /\.property-info \{[\s\S]*?gap: 1rem/);
   assert.match(styles, /\.property-info > div \{[\s\S]*?min-width: 0/);

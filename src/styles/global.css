@@ -20,6 +20,7 @@
     --space-16: 4rem;
     --space-20: 5rem;
     --space-24: 6.25rem;
+    --page-max: 87.5rem;
     --content-max: 73.75rem;
     --duration-fast: 180ms;
     --duration-base: 240ms;
@@ -31,13 +32,15 @@
     box-sizing: border-box;
 }
 html {
+    background: var(--paper);
     scroll-behavior: smooth;
 }
 :where(h1, h2, h3, section[id]) {
     scroll-margin-top: var(--space-12);
 }
 body {
-    margin: 0;
+    margin: 0 auto;
+    max-width: var(--page-max);
     color: var(--ink);
     background: var(--paper);
     font-family: var(--sans);
@@ -75,7 +78,7 @@ a {
     display: flex;
     justify-content: space-between;
     min-height: 5.25rem;
-    padding: 0 2.5rem;
+    padding: 0 max(2.5rem, calc((100% - var(--content-max)) / 2));
     position: relative;
     z-index: 5;
 }
