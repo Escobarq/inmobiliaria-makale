@@ -1,0 +1,304 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { properties, propertyTypes } from "../data/properties.js";
+import logo from "../assets/logo-makale.png";
+import "../styles/global.css";
+---
+
+<BaseLayout>
+    <a class="skip-link" href="#main-content">
+        Saltar al contenido principal
+    </a>
+    <header class="site-header">
+        <a class="brand" href="#inicio" aria-label="Makale, inicio">
+            <Image
+                src={logo}
+                alt="Makale Inmobiliaria"
+                width={154}
+                height={58}
+                loading="eager"
+                fetchpriority="high"
+            />
+        </a>
+        <a
+            class="header-phone"
+            href="tel:+573115387160"
+            aria-label="Llamar a Makale al 311 538 7160"
+        >
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M7.1 3.5 9.2 3a1.5 1.5 0 0 1 1.7.8l1.1 2.7a1.5 1.5 0 0 1-.3 1.6L10.3 9.5a12.3 12.3 0 0 0 4.2 4.2l1.4-1.4a1.5 1.5 0 0 1 1.6-.3l2.7 1.1a1.5 1.5 0 0 1 .8 1.7l-.5 2.1a1.5 1.5 0 0 1-1.5 1.1C11.3 17.8 6.2 12.7 5.3 5a1.5 1.5 0 0 1 1.1-1.5Z" />
+            </svg>
+            <span>311 538 7160</span>
+        </a>
+        <button
+            class="menu-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="main-nav"
+            aria-label="Abrir menú"
+        >
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M4 7h16M4 12h16M4 17h16" />
+            </svg>
+        </button>
+        <nav id="main-nav" class="main-nav" aria-label="Navegación principal">
+            <a class="active" href="#inicio">
+                Inicio
+            </a>
+            <a href="#propiedades">Propiedades</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#nosotros">Nosotros</a>
+            <a href="#contacto">Contacto</a>
+            <a class="nav-cta" href="#contacto">
+                Hablar con un asesor
+            </a>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section id="inicio" class="hero">
+            <Image
+                class="hero-image"
+                src="https://www.inmobiliariamakale.com.co/wp-content/uploads/2020/01/local-office-images-bogota-v02-1950x650.jpg"
+                alt="Interior de una propiedad Makale"
+                width={1950}
+                height={650}
+                loading="eager"
+                fetchpriority="high"
+            />
+            <div class="hero-content shell">
+                <p class="eyebrow">Bogotá · La Calera · Cundinamarca</p>
+                <h1>
+                    Un lugar para
+                    <br />
+                    <em>tu próxima historia.</em>
+                </h1>
+                <p class="hero-copy">
+                    Propiedades seleccionadas para vivir, invertir y crecer con
+                    tranquilidad.
+                </p>
+                <a class="button button-light" href="#propiedades">
+                    Explorar propiedades <span>↗</span>
+                </a>
+            </div>
+            <div class="hero-note">
+                Más de 25 años acompañando tus decisiones inmobiliarias
+            </div>
+        </section>
+
+        <section class="search-panel shell" aria-label="Buscar propiedades">
+            <div class="search-heading">
+                <p class="eyebrow">Encuentra tu espacio</p>
+                <h2>¿Qué estás buscando?</h2>
+            </div>
+            <form
+                class="property-search"
+                id="property-search"
+                autocomplete="off"
+            >
+                <label>
+                    <span>Operación</span>
+                    <select name="operation">
+                        {propertyTypes.map((type) => (
+                            <option>{type}</option>
+                        ))}
+                    </select>
+                </label>
+                <label>
+                    <span>Tipo de inmueble</span>
+                    <select name="type">
+                        <option>Todos los tipos</option>
+                        <option>Apartamento</option>
+                        <option>Casa</option>
+                        <option>Oficina</option>
+                        <option>Local</option>
+                    </select>
+                </label>
+                <label>
+                    <span>Ubicación</span>
+                    <input
+                        name="location"
+                        type="text"
+                        autocomplete="address-level2"
+                        placeholder="Ciudad o barrio…"
+                    />
+                </label>
+                <button class="button button-dark" type="submit">
+                    Buscar{" "}
+                    <svg
+                        class="button-icon"
+                        aria-hidden="true"
+                        viewBox="0 0 24 24"
+                    >
+                        <circle cx="10.8" cy="10.8" r="6.3" />
+                        <path d="m16 16 4.5 4.5" />
+                    </svg>
+                </button>
+            </form>
+            <p
+                class="search-feedback"
+                id="search-feedback"
+                aria-live="polite"
+            ></p>
+        </section>
+
+        <section id="propiedades" class="properties-section shell">
+            <div class="section-header">
+                <div>
+                    <p class="eyebrow">Selección Makale</p>
+                    <h2>
+                        Propiedades que
+                        <br />
+                        <em>merecen ser vistas.</em>
+                    </h2>
+                </div>
+                <a class="text-link" href="#contacto">
+                    Ver todas las propiedades <span>↗</span>
+                </a>
+            </div>
+            <div class="property-grid">
+                {properties
+                    .filter((property) => property.featured)
+                    .map((property) => (
+                        <article class="property-card">
+                            <a
+                                href={`#property-${property.id}`}
+                                class="property-image-link"
+                                aria-label={`Ver ${property.title}, ${property.type}`}
+                            >
+                                <Image
+                                    src={property.image}
+                                    alt={property.title}
+                                    width={1024}
+                                    height={768}
+                                    loading="lazy"
+                                />
+                                <span class="property-type">
+                                    {property.type}
+                                </span>
+                            </a>
+                            <div class="property-info">
+                                <div>
+                                    <p class="property-location">
+                                        {property.location}
+                                    </p>
+                                    <h3>{property.title}</h3>
+                                    <p class="property-details">
+                                        {property.details}
+                                    </p>
+                                </div>
+                                <strong>{property.price}</strong>
+                            </div>
+                        </article>
+                    ))}
+            </div>
+        </section>
+
+        <section id="servicios" class="services-section">
+            <div class="shell services-layout">
+                <div>
+                    <p class="eyebrow">Lo hacemos simple</p>
+                    <h2>
+                        Todo lo que necesitas,
+                        <br />
+                        <em>en un solo lugar.</em>
+                    </h2>
+                </div>
+                <div class="service-list">
+                    <a href="#contacto">
+                        <span>01</span>
+                        <strong>Arrendamientos</strong>
+                        <small>
+                            Administramos tu inmueble de principio a fin
+                        </small>
+                        <b>↗</b>
+                    </a>
+                    <a href="#contacto">
+                        <span>02</span>
+                        <strong>Ventas</strong>
+                        <small>Encontramos el comprador adecuado</small>
+                        <b>↗</b>
+                    </a>
+                    <a href="#contacto">
+                        <span>03</span>
+                        <strong>Avalúos</strong>
+                        <small>Decisiones respaldadas por experiencia</small>
+                        <b>↗</b>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="nosotros" class="about-section shell">
+            <Image
+                class="about-image"
+                src="https://www.inmobiliariamakale.com.co/wp-content/uploads/2020/01/IMG_7315-e1476973857806.jpg"
+                alt="Interior de una propiedad Makale"
+                width={3264}
+                height={1591}
+                loading="lazy"
+            />
+            <div class="about-content">
+                <p class="eyebrow">Desde 1998</p>
+                <h2>
+                    Conocemos el valor
+                    <br />
+                    de <em>sentirse en casa.</em>
+                </h2>
+                <p>
+                    En Makale conectamos personas con espacios que hacen sentido
+                    para su presente y su futuro. Trabajamos con honestidad,
+                    responsabilidad y calidad humana.
+                </p>
+                <a class="text-link" href="#contacto">
+                    Conoce más sobre nosotros <span>↗</span>
+                </a>
+            </div>
+        </section>
+
+        <section id="contacto" class="contact-section">
+            <div class="shell contact-layout">
+                <div>
+                    <p class="eyebrow">Hablemos</p>
+                    <h2>
+                        Tu próximo espacio
+                        <br />
+                        <em>empieza aquí.</em>
+                    </h2>
+                </div>
+                <div class="contact-details">
+                    <p>
+                        Estamos listos para ayudarte a encontrar la propiedad
+                        correcta o administrar la que ya tienes.
+                    </p>
+                    <a
+                        class="button button-light"
+                        href="mailto:gerencia@inmobiliariamakale.com.co"
+                    >
+                        Escribir a Makale <span>↗</span>
+                    </a>
+                    <p class="contact-meta">
+                        Carrera 15 No. 116-06 Oficina 614
+                        <br />
+                        Bogotá · +57 311 538 7160
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer shell">
+        <a class="brand" href="#inicio" aria-label="Makale, inicio">
+            <Image
+                src={logo}
+                alt="Makale Inmobiliaria"
+                width={145}
+                height={55}
+            />
+        </a>
+        <p>© 2026 Makale Inmobiliaria</p>
+        <a href="#inicio">Volver arriba ↑</a>
+    </footer>
+    <script src="../scripts/site.js"></script>
+</BaseLayout>

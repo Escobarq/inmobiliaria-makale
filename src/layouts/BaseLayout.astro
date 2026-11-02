@@ -1,0 +1,16 @@
+---
+const { title = 'Makale | Inmobiliaria' } = Astro.props;
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="Encuentra tu próximo hogar con Makale Inmobiliaria." />
+    <meta name="theme-color" content="#f7f6f2" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
